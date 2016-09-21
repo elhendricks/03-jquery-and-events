@@ -79,11 +79,6 @@ articleView.handleMainNav = function () {
 
   $('.main-nav').on('click', '.tab', function() {
     var $navDataContent = $(this).attr('data-content');
-
-    console.log($navDataContent);
-    console.log(this);
-
-
     $('.tab-content').hide();
     $('#' + $navDataContent).show();
   });
@@ -94,7 +89,7 @@ articleView.handleMainNav = function () {
 articleView.setTeasers = function() {
   /* Hide any elements after the first 2 (<p> Tags in case)
   in any article body: */
-  $('.article-body *:nth-of-type(n+2)').hide();
+  $('.article-body *:nth-of-type(n+3)').hide();
 
   /* TODO: Add a delegated event handler to reveal the remaining
   paragraph.  When a .read-on link is clicked, we can:
@@ -103,9 +98,15 @@ articleView.setTeasers = function() {
   3. Hide that read-on link! */
   // STRETCH GOAL!:  change the 'Read On' link to display 'Show Less'
 };
+$('#articles').on('click', '.read-on', function(event) {
+  event.preventDefault();
+  $(this).siblings('.article-body').find('*').show();
+  $(this).hide();
+});
 
 // TODO: Invoke all of the above functions (I mean, methods!):
 articleView.populateFilters();
 articleView.handleAuthorFilter();
 articleView.handleCategoryFilter();
 articleView.handleMainNav();
+articleView.setTeasers();
